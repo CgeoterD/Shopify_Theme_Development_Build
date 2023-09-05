@@ -1,0 +1,37 @@
+
+
+// Typography mixins
+@mixin typography(
+  $font-size,
+  $line-height,
+  $font-weight,
+  $font-family,
+  $color,
+  $text-transform: none
+) {
+  font-size: $font-size;
+  line-height: $line-height;
+  font-weight: $font-weight;
+  font-family: $font-family;
+  color: $color;
+  text-transform: $text-transform;
+}
+
+// Basic breakpoint mixins //
+@mixin media-tablet {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin media-laptop {
+  @media screen and (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin media-desktop {
+  @media screen and (min-width: 1600px) {
+    @content;
+  }
+}
