@@ -51,7 +51,7 @@ function regularStylesMinificator() {
         .pipe(dest('assets/'));
 }
 function regularScriptsMinificator() {
-    return src(`src/scripts-minification/*.js`)
+    return src(`src/scripts-minification/**/*.js`)
         .pipe(uglify())
         .pipe(rename(function (path) {
             path.dirname = '';
@@ -65,7 +65,7 @@ function watchFiles() {
     watch('src/tailwind-style/**/*.css', tailwindStyleCompiler);
     watch(['./templates/*.liquid', './layout/*.liquid', './sections/*.liquid', './snippets/*.liquid'], tailwindStyleCompiler);
     watch('src/styles-minification/**/*.css', regularStylesMinificator);
-    watch('src/scripts-minification/*.js', regularScriptsMinificator);
+    watch('src/scripts-minification/**/*.js', regularScriptsMinificator);
     watch('src/scss/**/*.scss', scssStyleCompiler);
 }
 function watchStyleFilesOnly() {
@@ -75,7 +75,7 @@ function watchStyleFilesOnly() {
     watch('src/scss/**/*.scss', scssStyleCompiler);
 }
 function watchScriptFilesOnly() {
-    watch('src/scripts-minification/*.js', regularScriptsMinificator);
+    watch('src/scripts-minification/**/*.js', regularScriptsMinificator);
 }
 
 exports.default = series(tailwindStyleCompiler, regularStylesMinificator, regularScriptsMinificator,scssStyleCompiler, watchFiles);
