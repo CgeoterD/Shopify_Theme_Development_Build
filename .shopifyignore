@@ -1,0 +1,10 @@
+src/
+node_modules/
+cypress/
+.gitignore
+gulpfile.js
+package.json
+package-lock.json
+tailwind.config.js
+cypress.config.js
+README.md

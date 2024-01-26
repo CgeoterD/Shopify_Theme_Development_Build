@@ -1,53 +1,84 @@
-const {src, dest, watch} = require('gulp');
-const concat = require('gulp-concat');
+const {src, dest, series, watch} = require('gulp');
+const rename = require('gulp-rename');
 
 // Styles
+const postcss = require('gulp-postcss');
+const tailwindcss = require('tailwindcss');
+const autoprefixer = require("autoprefixer");
+const cssnano = require('cssnano');
 const scss = require('gulp-sass')(require('sass'));
-const autoprefixer = require('gulp-autoprefixer')
 
 // Scripts
 const uglify = require('gulp-uglify-es').default;
 
-
-//  Build adjusting
-const buildConfig = {
-    // file name
-    readyStyleFileName: `section-new-featured-products.min.css`,
-    readyJsFileName: `section-new-featured-products.min.js`,
-
-    // paths
-    workingStyleFilePath: `./development-src/scss/style.scss`,
-    workingScriptFilePath: `./development-src/scripts/main.js`,
-
-    readyJsFilePath: `./assets/`,
-    readyStyleFilePath: `./assets/`
-
+// Executors
+function tailwindStyleCompiler() {
+    return src('src/tailwind-style/*.css')
+        .pipe(postcss([
+            tailwindcss('./tailwind.config.js'),
+            autoprefixer(),
+            cssnano()
+        ]))
+        .pipe(rename(function (path) {
+            path.dirname = '';
+            path.extname = '.min.css';
+        }))
+        .pipe(dest('assets/'));
+}
+function scssStyleCompiler() {
+    return src('src/scss/**/*.scss')
+        .pipe(scss().on('error', scss.logError))
+        .pipe(postcss([
+            autoprefixer(),
+            cssnano()
+        ]))
+        .pipe(rename(function (path) {
+            path.dirname = '';
+            path.extname = '.min.css';
+        }))
+        .pipe(dest('assets/'));
+}
+function regularStylesMinificator() {
+    return src('src/styles-minification/**/*.css')
+        .pipe(postcss([
+            autoprefixer(),
+            cssnano()
+        ]))
+        .pipe(rename(function (path) {
+            path.dirname = '';
+            path.extname = '.min.css';
+        }))
+        .pipe(dest('assets/'));
+}
+function regularScriptsMinificator() {
+    return src(`src/scripts-minification/*.js`)
+        .pipe(uglify())
+        .pipe(rename(function (path) {
+            path.dirname = '';
+            path.extname = '.min.js';
+        }))
+        .pipe(dest('assets/'))
 }
 
-const build = {
-    styles() {
-        return src([
-            `${buildConfig.workingStyleFilePath}`
-        ])
-            .pipe(autoprefixer({overrideBrowserslist: ['last 10 version']}))
-            .pipe(concat(`${buildConfig.readyStyleFileName}`))
-            .pipe(scss({outputStyle: "compressed"}))
-            .pipe(dest(`${buildConfig.readyStyleFilePath}`))
-    },
-    scripts() {
-        return src([
-            // imports
-            `${buildConfig.workingScriptFilePath}`
-        ])
-            .pipe(concat(`${buildConfig.readyJsFileName}`))
-            .pipe(uglify())
-            .pipe(dest(`${buildConfig.readyJsFilePath}`))
-    },
-    watching: () => {
-        watch([`${buildConfig.workingStyleFilePath}`], this.styles)
-        watch([`${buildConfig.workingScriptFilePath}`], this.scripts)
-    }
+// Watchers
+function watchFiles() {
+    watch('src/tailwind-style/**/*.css', tailwindStyleCompiler);
+    watch(['./templates/*.liquid', './layout/*.liquid', './sections/*.liquid', './snippets/*.liquid'], tailwindStyleCompiler);
+    watch('src/styles-minification/**/*.css', regularStylesMinificator);
+    watch('src/scripts-minification/*.js', regularScriptsMinificator);
+    watch('src/scss/**/*.scss', scssStyleCompiler);
 }
-exports.styles = build.styles;
-exports.scripts = build.scripts;
-exports.watching = build.watching;
+function watchStyleFilesOnly() {
+    watch('src/tailwind-style/**/*.css', tailwindStyleCompiler);
+    watch(['./templates/*.liquid', './layout/*.liquid', './sections/*.liquid', './snippets/*.liquid'], tailwindStyleCompiler);
+    watch('src/styles-minification/**/*.css', regularStylesMinificator);
+    watch('src/scss/**/*.scss', scssStyleCompiler);
+}
+function watchScriptFilesOnly() {
+    watch('src/scripts-minification/*.js', regularScriptsMinificator);
+}
+
+exports.default = series(tailwindStyleCompiler, regularStylesMinificator, regularScriptsMinificator,scssStyleCompiler, watchFiles);
+exports.watchStyles = series(tailwindStyleCompiler, regularStylesMinificator,scssStyleCompiler, watchStyleFilesOnly);
+exports.watchScripts = series(regularScriptsMinificator, watchScriptFilesOnly);
+exports.build = series(tailwindStyleCompiler, regularStylesMinificator, scssStyleCompiler, regularScriptsMinificator);
