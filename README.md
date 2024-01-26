@@ -13,6 +13,7 @@ This project is a build setup for a Shopify theme. It utilizes Gulp for task aut
 
  <b>Tailwind CSS with Prefix:</b><br>
  Tailwind CSS is configured with the prefix "tw-" for all its classes to avoid conflicts and ensure better integration with existing styles. This means that every Tailwind class should be used with the "tw-" prefix (e.g., tw-text-center, tw-p-4).
+
 ---
 
 ## Getting started
