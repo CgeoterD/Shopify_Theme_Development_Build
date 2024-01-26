@@ -11,8 +11,15 @@ This project is a build setup for a Shopify theme. It utilizes Gulp for task aut
 - <b>Live Watching:</b> Automatically watch and compile files during development.
 
 
- <b>Tailwind CSS with Prefix:</b><br>
- Tailwind CSS is configured with the prefix "tw-" for all its classes to avoid conflicts and ensure better integration with existing styles. This means that every Tailwind class should be used with the "tw-" prefix (e.g., tw-text-center, tw-p-4).
+#### <b>Tailwind CSS with Prefix:</b><br>
+ Tailwind CSS is configured with the prefix `tw-` for all its classes to avoid conflicts and ensure better integration with existing styles. This means that every Tailwind class should be used with the `tw-` prefix (e.g., `tw-text-center, tw-p-4`).
+
+#### <b>Folder Structure and Compilation</b><br>
+In this setup, users have the flexibility to create nested folders within the src directory for better organization. This is particularly useful for managing Styles and JavaScript files in a structured manner. For instance, you can have a structure like `src/scss/components/` or `src/scripts/modules/`.
+
+When these files are compiled, they are output directly into the assets folder, without retaining the nested directory structure. This means that no matter how you organize your files within the src directory, the compiled CSS and JavaScript files will all be placed flatly in the assets folder. This feature simplifies the final structure and ensures a clean and organized output in the assets directory.
+
+For example, a file located at `src/scss/components/my-component.scss` will be compiled and placed as `assets/my-component.min.css`. This ensures ease of reference and cleaner integration with your project's overall structure.
 
 ---
 
