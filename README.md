@@ -118,4 +118,8 @@ store = "heo-test"
 path = "./"
 ignore = []
 ```
+Example command
+```bash
+shopify theme dev -e env1
+```
 
