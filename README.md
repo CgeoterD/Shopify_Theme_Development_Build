@@ -64,7 +64,7 @@ Run tests using Cypress.
 npm run test
 ```
 
-### Usage
+### Gulp Tasks
 - <b>tailwindStyleCompiler:</b> Compiles Tailwind CSS.
 - <b>scssStyleCompiler:</b> Compiles SCSS files to CSS.
 - <b>regularStylesMinificator:</b> Minifies regular CSS files.
@@ -73,7 +73,7 @@ npm run test
 - <b>watchStyleFilesOnly:</b> Watches only style-related files.
 - <b>watchScriptFilesOnly:</b> Watches only script-related files.
 
-### Usage
+### Structure
 - `src/tailwind-style/`: Source folder for Tailwind CSS files.
 - `src/scss/`: Source folder for SCSS files.
 - `src/styles-minification/`: Source folder for regular CSS files to be minified.
