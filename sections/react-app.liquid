@@ -1,0 +1,24 @@
+
+<div id="check"></div>
+
+<script src="{{ "custom-app.min.js" | asset_url }}" defer></script>
+{% schema %}
+{
+  "name": "React app",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "include_margins",
+      "default": true,
+      "label": "t:sections.apps.settings.include_margins.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "React App"
+    }
+  ]
+}
+{% endschema %}
