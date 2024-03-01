@@ -1,4 +1,7 @@
-const {src, dest, series, watch} = require('gulp');
+const fs = require('fs');
+require('dotenv').config();
+const path = require('path');
+const {src, dest, series, parallel, watch} = require('gulp');
 const rename = require('gulp-rename');
 
 // Styles
@@ -10,6 +13,8 @@ const scss = require('gulp-sass')(require('sass'));
 
 // Scripts
 const uglify = require('gulp-uglify-es').default;
+const babel = require('gulp-babel');
+const concat = require('gulp-concat');
 
 // Executors
 function tailwindStyleCompiler() {
@@ -78,6 +83,28 @@ function watchScriptFilesOnly() {
     watch('src/scripts-minification/**/*.js', regularScriptsMinificator);
 }
 
+// React projects compilation
+function compileReactApp() {
+    const projectName = process.env.REACT_PROJECT_NAME;
+    if (!projectName) {
+        throw new Error('REACT_PROJECT_NAME is not set in .env file.');
+    }
+    const projectPath = path.join(__dirname, 'src', 'react-apps', projectName);
+    if (!fs.existsSync(projectPath)) {
+        throw new Error(`Project folder for '${projectName}' does not exist.`);
+    }
+
+    return src(`${projectPath}/**/*.{js,jsx,ts,tsx}`)
+        .pipe(babel({
+            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript']
+        }))
+        .pipe(concat(`${projectName}.js`))
+        .pipe(dest('assets/'));
+}
+exports.compileReactApp = compileReactApp;
+
+
+// Exports
 exports.default = series(tailwindStyleCompiler, regularStylesMinificator, regularScriptsMinificator,scssStyleCompiler, watchFiles);
 exports.watchStyles = series(tailwindStyleCompiler, regularStylesMinificator,scssStyleCompiler, watchStyleFilesOnly);
 exports.watchScripts = series(regularScriptsMinificator, watchScriptFilesOnly);
