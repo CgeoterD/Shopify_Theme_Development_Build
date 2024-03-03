@@ -8,7 +8,6 @@
     "dev:style": "gulp watchStyles",
     "dev:script": "gulp watchScripts",
     "build": "gulp build",
-    "test": "npx cypress open",
     "react:build": "webpack --mode production",
     "react:dev": "webpack --watch --mode development"
   },

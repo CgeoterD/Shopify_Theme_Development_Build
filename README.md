@@ -59,10 +59,6 @@ Run a build process to compile all styles and scripts.
 ```bash
 npm run build
 ```
-Run tests using Cypress.
-```bash
-npm run test
-```
 
 ### Gulp Tasks
 - <b>tailwindStyleCompiler:</b> Compiles Tailwind CSS.
@@ -123,3 +119,6 @@ Example command
 shopify theme dev -e env1
 ```
 
+# React Application Build Configuration
+
+## Configuration
