@@ -1,3 +1,8 @@
+
+| Related Repository                                                                                                                                       | Description                                                                                                                                                                                                                                                                                |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Theme development build with React Apps compilation](https://github.com/CgeoterD/Shopify_Theme_Development/tree/theme-build-with-react-app-compilation) | This branch provides a specialized setup for Shopify theme development incorporating React compilation. It offers a detailed workflow and the tools necessary for integrating React components seamlessly into Shopify themes, enhancing the interactivity and dynamism of a store's development. | | Description of the third related repository. |
+
 # Shopify Theme Build
 
 This project is a build setup for a Shopify theme. It utilizes Gulp for task automation, providing a streamlined workflow for compiling styles and scripts. Tailwind CSS is integrated for utility-first styling, along with SCSS support for more traditional CSS pre-processing. JavaScript files are minified for optimal performance.
