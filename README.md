@@ -46,16 +46,7 @@ Starts the Gulp default task which includes all compilers and watchers.
 ```bash
 npm run dev
 ```
-Watch and compile style-related changes only.
 
-```bash
-npm run dev:style
-```
-Watch and compile script-related changes only.
-
-```bash
-npm run dev:script
-```
 Run a build process to compile all styles and scripts.
 
 ```bash

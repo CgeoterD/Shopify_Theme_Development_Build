@@ -6,21 +6,21 @@ const appName = process.env.REACT_APP_NAME;
 module.exports = {
     entry: `./src/react-apps/${appName}/index.${process.env.REACT_APP_ENTRY_POINT_FILE_EXTENSION}`, // Your entry point
     output: {
-        path: path.resolve(__dirname, './assets'), // Output directory
-        filename: `${appName}.min.js`, // Output file
+        path: path.resolve(__dirname, './assets'),
+        filename: `${appName}.min.js`,
     },
     module: {
         rules: [
             {
-                test: /\.tsx?$/, // Added for TypeScript files
-                use: 'ts-loader', // Using ts-loader for TypeScript files
+                test: /\.tsx?$/,
+                use: 'ts-loader',
                 exclude: /node_modules/,
             },
             {
-                test: /\.jsx?$/, // Target .js and .jsx files
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: 'babel-loader', // Use babel-loader for JS and JSX files
+                    loader: 'babel-loader',
                     options: {
                         presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
                     },
@@ -40,13 +40,13 @@ module.exports = {
         alias: {
             Components: path.resolve(__dirname, `./src/react-apps/${appName}/components/`),
         },
-        extensions: ['.js', '.jsx', '.ts', '.tsx'], // Resolve these extensions
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
     optimization: {
         minimize: true,
         minimizer: [
             new TerserPlugin({
-                extractComments: false, // This prevents the generation of the LICENSE.txt file
+                extractComments: false,
             }),
         ],
     },

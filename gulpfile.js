@@ -10,6 +10,8 @@ const scss = require('gulp-sass')(require('sass'));
 
 // Scripts
 const uglify = require('gulp-uglify-es').default;
+const ts = require('gulp-typescript');
+const tsProject = ts.createProject('tsconfig.json');
 
 // Executors
 function tailwindStyleCompiler() {
@@ -59,6 +61,15 @@ function regularScriptsMinificator() {
         }))
         .pipe(dest('assets/'))
 }
+function typeScriptCompiler() {
+    return src(`src/ts-compilation/**/*.ts`)
+        .pipe(tsProject())
+        .pipe(rename(function (path) {
+            path.dirname = '';
+            path.extname = '.min.js';
+        }))
+        .pipe(dest('assets/'));
+}
 
 // Watchers
 function watchFiles() {
@@ -66,19 +77,9 @@ function watchFiles() {
     watch(['./templates/*.liquid', './layout/*.liquid', './sections/*.liquid', './snippets/*.liquid'], tailwindStyleCompiler);
     watch('src/styles-minification/**/*.css', regularStylesMinificator);
     watch('src/scripts-minification/**/*.js', regularScriptsMinificator);
+    watch('src/ts-compilation/**/*.ts', typeScriptCompiler);
     watch('src/scss/**/*.scss', scssStyleCompiler);
-}
-function watchStyleFilesOnly() {
-    watch('src/tailwind-style/**/*.css', tailwindStyleCompiler);
-    watch(['./templates/*.liquid', './layout/*.liquid', './sections/*.liquid', './snippets/*.liquid'], tailwindStyleCompiler);
-    watch('src/styles-minification/**/*.css', regularStylesMinificator);
-    watch('src/scss/**/*.scss', scssStyleCompiler);
-}
-function watchScriptFilesOnly() {
-    watch('src/scripts-minification/**/*.js', regularScriptsMinificator);
 }
 
-exports.default = series(tailwindStyleCompiler, regularStylesMinificator, regularScriptsMinificator,scssStyleCompiler, watchFiles);
-exports.watchStyles = series(tailwindStyleCompiler, regularStylesMinificator,scssStyleCompiler, watchStyleFilesOnly);
-exports.watchScripts = series(regularScriptsMinificator, watchScriptFilesOnly);
-exports.build = series(tailwindStyleCompiler, regularStylesMinificator, scssStyleCompiler, regularScriptsMinificator);
+exports.default = series(tailwindStyleCompiler, regularStylesMinificator, regularScriptsMinificator,typeScriptCompiler, scssStyleCompiler, watchFiles);
+exports.build = series(tailwindStyleCompiler, regularStylesMinificator, scssStyleCompiler, regularScriptsMinificator, typeScriptCompiler);
