@@ -1,3 +1,9 @@
 /* TailwindCss */
+/*@tailwind base;*/
 @tailwind components;
 @tailwind utilities;
+
+
+body {
+    @apply tw-mt-[10px] tw-absolute
+}

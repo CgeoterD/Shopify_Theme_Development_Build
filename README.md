@@ -1,32 +1,28 @@
-
-| Related Repository                                                                                                                                       | Description                                                                                                                                                                                                                                                                                |
-|----------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Theme development build with React Apps compilation](https://github.com/CgeoterD/Shopify_Theme_Development/tree/theme-build-with-react-app-compilation) | This branch provides a specialized setup for Shopify theme development incorporating React compilation. It offers a detailed workflow and the tools necessary for integrating React components seamlessly into Shopify themes, enhancing the interactivity and dynamism of a store's development. | | Description of the third related repository. |
-
 # Shopify Theme Build
-
-This project is a build setup for a Shopify theme. It utilizes Gulp for task automation, providing a streamlined workflow for compiling styles and scripts. Tailwind CSS is integrated for utility-first styling, along with SCSS support for more traditional CSS pre-processing. JavaScript files are minified for optimal performance.
-
-In addition to Gulp, this setup employs Webpack for bundling React components, enabling the development and deployment of dynamic, client-side interfaces within the Shopify theme. The webpack configuration is designed to support both development and production environments, with optimizations such as minification and dead code elimination through Terser for efficient loading times. Support for TypeScript is also included, allowing developers to leverage strong typing for better code quality and maintainability.
+This project setup is tailored for developing a Shopify theme. It utilizes a combination of Gulp and Webpack to facilitate a streamlined workflow for automating tasks and bundling assets. This configuration supports both traditional and modern web technologies, including SCSS for CSS pre-processing and Tailwind CSS for utility-first styling. The setup also ensures that JavaScript and TypeScript files are efficiently processed for optimal performance.
 
 ## Features
 
-- <b>Tailwind CSS Integration:</b> Automated compilation of Tailwind CSS.
-- <b>SCSS Support:</b> Compile SCSS files into CSS with ease.
-- <b>JavaScript Minification:</b> Minify JavaScript files for better performance.
-- <b>Plain CSS Minification:</b> Ability to minify plain CSS files, enhancing load times and performance.
-- <b>Live Watching:</b> Automatically watch and compile files during development.
-- <b>React Component Bundling with Webpack:</b> Utilizes Webpack to bundle React components, enabling the development of complex and dynamic user interfaces within the Shopify theme.
+- <b>Tailwind CSS Compilation</b>
+- <b>SCSS Support</b> 
+- <b>JavaScript Minification</b>
+- <b>TypeScript Compilation</b> 
+- <b>Plain CSS Minification</b> 
+- <b>Live Watching</b>
+- <b>React Component Bundling with Webpack</b> 
 
 #### <b>Tailwind CSS with Prefix:</b><br>
- Tailwind CSS is configured with the prefix `tw-` for all its classes to avoid conflicts and ensure better integration with existing styles. This means that every Tailwind class should be used with the `tw-` prefix (e.g., `tw-text-center, tw-p-4`).
+Tailwind CSS is configured with the prefix `tw-` for all its classes to avoid conflicts and ensure better integration with existing styles. This means that every Tailwind class should be used with the `tw-` prefix (e.g., `tw-text-center, tw-p-4`).
 
 #### <b>Folder Structure and Compilation</b><br>
-In this setup, users have the flexibility to create nested folders within the src directory for better organization. This is particularly useful for managing Styles and JavaScript files in a structured manner. For instance, you can have a structure like `src/scss/components/` or `src/scripts-minification/modules/`.
+In this setup, users have the flexibility to create nested folders within the src directory for better organization. This is particularly useful for managing JavaScript and TypesScript files in a structured manner. For instance, you can have a structure like `src/ts-compilation/interfaces/` or `src/scripts-minification/modules/`.
 
-When these files are compiled, they are output directly into the assets folder, without retaining the nested directory structure. This means that no matter how you organize your files within the src directory, the compiled CSS and JavaScript files will all be placed flatly in the assets folder. This feature simplifies the final structure and ensures a clean and organized output in the assets directory.
+Upon compilation, the files are output to the assets folder without retaining the original nested directory structure. No matter how the files are organized within the src directory, all compiled files, including JavaScript, TypeScript, CSS  are placed flatly in the assets folder.
 
-For example, a file located at `src/scss/components/my-component.scss` will be compiled and placed as `assets/my-component.min.css`. This ensures ease of reference and cleaner integration with your project's overall structure.
+For example, a file located at `src/ts-compilation/export-example/export-example-file.ts` will be compiled and placed as `assets/export-example-file.min.js`. This ensures ease of reference and cleaner integration with your project's overall structure.
+
+Additionally, during the compilation, any `import/export` references within the JavaScript and TypeScript files are automatically adjusted. For instance, if a TypeScript file located at `src/ts-compilation/export-example/export-example-file.ts` includes an import statement referencing another module within src, this path will be automatically rewritten in the compiled output to correctly reference the flattened structure in the assets folder, such as `./export-example-file.min.js`.
+You can find examples in the project folders
 
 ---
 
@@ -51,7 +47,6 @@ Starts the Gulp default task which includes all compilers and watchers.
 ```bash
 npm run dev
 ```
-
 Run a build process to compile all styles and scripts.
 
 ```bash
@@ -63,15 +58,15 @@ npm run build
 - <b>scssStyleCompiler:</b> Compiles SCSS files to CSS.
 - <b>regularStylesMinificator:</b> Minifies regular CSS files.
 - <b>regularScriptsMinificator:</b> Minifies JavaScript files.
+- <b>typeScriptCompiler:</b> Compiles TypeScript files.
 - <b>watchFiles:</b> Watches all files and runs respective compilers.
-- <b>watchStyleFilesOnly:</b> Watches only style-related files.
-- <b>watchScriptFilesOnly:</b> Watches only script-related files.
 
 ### Structure
 - `src/tailwind-style/`: Source folder for Tailwind CSS files.
 - `src/scss/`: Source folder for SCSS files.
 - `src/styles-minification/`: Source folder for regular CSS files to be minified.
 - `src/scripts-minification/`: Source folder for JavaScript files to be minified.
+- `ts-compilation/`: Source folder for TypeScript files to be compiled.
 - `assets/`: Destination folder for compiled and minified styles and scripts.
 
 ### Workflow
@@ -80,14 +75,9 @@ npm run build
 
 To begin development, start by watching for changes in your local files. Use one of the following npm scripts depending on your focus:
 
-To watch all files (including styles and scripts):
+To watch all files:
 ```bash
 npm run dev
-```
-
-If you are working only with styles:
-```bash
-npm run dev:style
 ```
 After you have finished making changes during your development session, run the following command to create a production build:
 ```bash
@@ -118,21 +108,21 @@ shopify theme dev -e env1
 ```
 
 ## Getting Started with React Application Development
-For integrating React components into Shopify sections, this setup leverages a webpack configuration designed specifically for this purpose. You can explore a basic implementation example located in the `src/react-apps/custom-app` directory.
+For integrating React components into Shopify sections, this setup leverages a webpack configuration designed specifically for this purpose. You can explore a basic implementation example located in the `src/react-apps/example-react-app` directory.
 ## Configuration
 Before initiating your React application development or build process, it's crucial to configure the necessary environment variables. These variables are essential for determining the structure and behavior of the webpack compilation. Set up these variables in a `.env` file situated at the root of your project:
 
-- `REACT_APP_NAME`: Specifies the name of your React application. This name influences the output filename and determines the directory structure for your compiled assets. 
+- `REACT_APP_NAME`: Specifies the name of your React application. This name influences the output filename and determines the directory structure for your compiled assets.
 - `REACT_APP_ENTRY_POINT_FILE_EXTENSION`: Defines the file extension for the entry point of your React application. This could be either tsx for TypeScript or jsx for JavaScript.
 
 Example:
 ```easycode
-REACT_APP_NAME="custom-app"
+REACT_APP_NAME="example-react-app"
 REACT_APP_ENTRY_POINT_FILE_EXTENSION="tsx"
 ```
 
 ### Structure
-Your React application should reside within the `src/react-apps/` directory, under a subdirectory named after your app (as defined by `REACT_APP_NAME` in your `.env` file). For instance, the example application can be found at `src/react-apps/custom-app/`. This organizational structure is designed to support multiple React applications within the same project, each with its own distinct configuration and assets.
+Your React application should reside within the `src/react-apps/` directory, under a subdirectory named after your app (as defined by `REACT_APP_NAME` in your `.env` file). For instance, the example application can be found at `src/react-apps/example-react-app/`. This organizational structure is designed to support multiple React applications within the same project, each with its own distinct configuration and assets.
 
 ### Workflow
 To start the development server with live reloading, use the following npm script:

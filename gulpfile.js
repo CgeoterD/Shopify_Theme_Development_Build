@@ -80,13 +80,12 @@ function typeScriptCompiler() {
 
 // Watchers
 function watchFiles() {
-    watch('src/tailwind-style/**/*.css', tailwindStyleCompiler);
-    watch(['./templates/*.liquid', './layout/*.liquid', './sections/*.liquid', './snippets/*.liquid'], tailwindStyleCompiler);
+    watch(['src/tailwind-style/**/*.css','./templates/*.liquid', './layout/*.liquid', './sections/*.liquid', './snippets/*.liquid'], tailwindStyleCompiler);
     watch('src/styles-minification/**/*.css', regularStylesMinificator);
     watch('src/scripts-minification/**/*.js', regularScriptsMinificator);
     watch('src/ts-compilation/**/*.ts', typeScriptCompiler);
     watch('src/scss/**/*.scss', scssStyleCompiler);
 }
 
-exports.default = parallel(tailwindStyleCompiler, regularStylesMinificator, regularScriptsMinificator,typeScriptCompiler, scssStyleCompiler, watchFiles);
+exports.default = series(parallel(tailwindStyleCompiler, regularStylesMinificator, regularScriptsMinificator,typeScriptCompiler, scssStyleCompiler), watchFiles);
 exports.build = parallel(tailwindStyleCompiler, regularStylesMinificator, scssStyleCompiler, regularScriptsMinificator, typeScriptCompiler);
