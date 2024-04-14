@@ -1,5 +1,6 @@
-const {src, dest, series, watch} = require('gulp');
+const {src, dest, series, watch, parallel} = require('gulp');
 const rename = require('gulp-rename');
+const replace = require('gulp-replace');
 
 // Styles
 const postcss = require('gulp-postcss');
@@ -28,7 +29,7 @@ function tailwindStyleCompiler() {
         .pipe(dest('assets/'));
 }
 function scssStyleCompiler() {
-    return src('src/scss/**/*.scss')
+    return src('src/scss/*.scss')
         .pipe(scss().on('error', scss.logError))
         .pipe(postcss([
             autoprefixer(),
@@ -54,6 +55,9 @@ function regularStylesMinificator() {
 }
 function regularScriptsMinificator() {
     return src(`src/scripts-minification/**/*.js`)
+        .pipe(replace(/from\s+['"](?:.*\/)?([^'"]+)['"]/g, (match, p1) => {
+            return `from './${p1}.min.js'`;
+        }))
         .pipe(uglify())
         .pipe(rename(function (path) {
             path.dirname = '';
@@ -64,6 +68,9 @@ function regularScriptsMinificator() {
 function typeScriptCompiler() {
     return src(`src/ts-compilation/**/*.ts`)
         .pipe(tsProject())
+        .pipe(replace(/from\s+['"](?:.*\/)?([^'"]+)['"]/g, (match, p1) => {
+            return `from './${p1}.min.js'`;
+        }))
         .pipe(rename(function (path) {
             path.dirname = '';
             path.extname = '.min.js';
@@ -81,5 +88,5 @@ function watchFiles() {
     watch('src/scss/**/*.scss', scssStyleCompiler);
 }
 
-exports.default = series(tailwindStyleCompiler, regularStylesMinificator, regularScriptsMinificator,typeScriptCompiler, scssStyleCompiler, watchFiles);
-exports.build = series(tailwindStyleCompiler, regularStylesMinificator, scssStyleCompiler, regularScriptsMinificator, typeScriptCompiler);
+exports.default = parallel(tailwindStyleCompiler, regularStylesMinificator, regularScriptsMinificator,typeScriptCompiler, scssStyleCompiler, watchFiles);
+exports.build = parallel(tailwindStyleCompiler, regularStylesMinificator, scssStyleCompiler, regularScriptsMinificator, typeScriptCompiler);
