@@ -7,7 +7,7 @@ Several npm scripts are provided to facilitate easy interaction with the Docker 
 
 Builds the Docker image with the tag shopify-build-image.
 ```bash
-npm run docker:image: 
+npm run docker:image 
 ```
 Starts the Docker container in detached mode, making the development server accessible.
 ```bash
