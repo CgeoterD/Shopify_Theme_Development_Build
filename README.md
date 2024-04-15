@@ -30,6 +30,23 @@ For example, a file located at `src/ts-compilation/export-example/export-example
 Additionally, during the compilation, any `import/export` references within the JavaScript and TypeScript files are automatically adjusted. For instance, if a TypeScript file located at `src/ts-compilation/export-example/export-example-file.ts` includes an import statement referencing another module within src, this path will be automatically rewritten in the compiled output to correctly reference the flattened structure in the assets folder, such as `./export-example-file.min.js`.
 You can find examples in the project folders
 
+### Gulp Tasks
+- <b>tailwindStyleCompiler:</b> Compiles Tailwind CSS.
+- <b>scssStyleCompiler:</b> Compiles SCSS files to CSS.
+- <b>regularStylesMinificator:</b> Minifies regular CSS files.
+- <b>regularScriptsMinificator:</b> Minifies JavaScript files.
+- <b>typeScriptCompiler:</b> Compiles TypeScript files.
+- <b>watchFiles:</b> Watches all files and runs respective compilers.
+
+### Structure
+- `src/tailwind-style/`: Source folder for Tailwind CSS files.
+- `src/scss/`: Source folder for SCSS files.
+- `src/styles-minification/`: Source folder for regular CSS files to be minified.
+- `src/scripts-minification/`: Source folder for JavaScript files to be minified.
+- `src/ts-compilation/`: Source folder for TypeScript files to be compiled.
+- `assets/`: Destination folder for compiled and minified styles and scripts.
+
+
 ---
 
 ## Getting started
@@ -44,36 +61,6 @@ You can find examples in the project folders
    ```bash
    npm install
    ```
-
-### Usage
-
-The following npm scripts are available:
-
-Starts the Gulp default task which includes all compilers and watchers.
-```bash
-npm run dev
-```
-Run a build process to compile all styles and scripts.
-
-```bash
-npm run build
-```
-
-### Gulp Tasks
-- <b>tailwindStyleCompiler:</b> Compiles Tailwind CSS.
-- <b>scssStyleCompiler:</b> Compiles SCSS files to CSS.
-- <b>regularStylesMinificator:</b> Minifies regular CSS files.
-- <b>regularScriptsMinificator:</b> Minifies JavaScript files.
-- <b>typeScriptCompiler:</b> Compiles TypeScript files.
-- <b>watchFiles:</b> Watches all files and runs respective compilers.
-
-### Structure
-- `src/tailwind-style/`: Source folder for Tailwind CSS files.
-- `src/scss/`: Source folder for SCSS files.
-- `src/styles-minification/`: Source folder for regular CSS files to be minified.
-- `src/scripts-minification/`: Source folder for JavaScript files to be minified.
-- `ts-compilation/`: Source folder for TypeScript files to be compiled.
-- `assets/`: Destination folder for compiled and minified styles and scripts.
 
 ### Workflow
 
