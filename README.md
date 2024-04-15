@@ -1,3 +1,32 @@
+# Docker settings
+
+This project utilizes Docker to create a consistent development environment. Docker ensures that all dependencies and configurations are isolated and reproducible, making it easier to share the setup with team members or deploy it to different stages without hassle.
+
+## Docker Commands
+Several npm scripts are provided to facilitate easy interaction with the Docker environment:
+
+Builds the Docker image with the tag shopify-build-image.
+```bash
+npm run docker:image: 
+```
+Starts the Docker container in detached mode, making the development server accessible.
+```bash
+npm run docker:up 
+```
+Stops and removes the container and network created by docker-compose up.
+```bash
+npm run docker:down
+```
+Attaches a terminal session to the running container, allowing for direct command execution inside the container.
+```bash
+npm run docker:t
+```
+## Before start
+1. Open `gulpfile.js` and uncomment the function corresponding to your operating system <br>
+<img alt="img.png" height="400" src="img.png" width="800"/>
+2. If you use Windows OS, uncomment the following code in `webpack.config.js` <br>
+   <img alt="img_1.png" height="200" src="img_1.png" width="800"/>
+
 # Shopify Theme Build
 This project setup is tailored for developing a Shopify theme. It utilizes a combination of Gulp and Webpack to facilitate a streamlined workflow for automating tasks and bundling assets. This configuration supports both traditional and modern web technologies, including SCSS for CSS pre-processing and Tailwind CSS for utility-first styling. The setup also ensures that JavaScript and TypeScript files are efficiently processed for optimal performance.
 

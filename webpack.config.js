@@ -50,4 +50,9 @@ module.exports = {
             }),
         ],
     },
+    // Watcher settings for Windows OS users
+    // watch: true,
+    // watchOptions: {
+    //     poll: 1000,
+    // },
 };

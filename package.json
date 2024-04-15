@@ -7,7 +7,11 @@
     "dev": "gulp",
     "build": "gulp build",
     "react:build": "webpack --mode production",
-    "react:dev": "webpack --watch --mode development"
+    "react:dev": "webpack --watch --mode development",
+    "docker:image": "docker build -t shopify-build-image .",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:t": "docker exec -it shopify-theme-build /bin/sh"
   },
   "author": "George Terentiev <cgeoterd@gmail.com>",
   "license": "MIT",

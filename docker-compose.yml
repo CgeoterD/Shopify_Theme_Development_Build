@@ -1,0 +1,9 @@
+version: '3'
+services:
+  shopify-theme-build:
+    image: shopify-build-image
+    container_name: shopify-theme-build
+    volumes:
+      - .:/app
+    tty: true
+    stdin_open: true
