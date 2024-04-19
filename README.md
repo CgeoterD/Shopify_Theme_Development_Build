@@ -1,9 +1,3 @@
-| Related Repository                                                                                                          | Description                                                                                                      |
-|-----------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
-| [Theme development build with Docker](https://github.com/CgeoterD/Shopify_Theme_Development/tree/shopify-build-with-docker) | This branch provides a specialized setup for Shopify theme development, incorporating the Dockerization of the codebase to ensure consistency and ease of deployment across different devices.  | | Description of the third related repository. |
-
-
-
 # Shopify Theme Build
 This project setup is tailored for developing a Shopify theme. It utilizes a combination of Gulp and Webpack to facilitate a streamlined workflow for automating tasks and bundling assets. This configuration supports both traditional and modern web technologies, including SCSS for CSS pre-processing and Tailwind CSS for utility-first styling. The setup also ensures that JavaScript and TypeScript files are efficiently processed for optimal performance.
 
