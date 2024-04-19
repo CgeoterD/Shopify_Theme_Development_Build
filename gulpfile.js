@@ -71,6 +71,7 @@ function typeScriptCompiler() {
         .pipe(replace(/from\s+['"](?:.*\/)?([^'"]+)['"]/g, (match, p1) => {
             return `from './${p1}.min.js'`;
         }))
+        .pipe(uglify())
         .pipe(rename(function (path) {
             path.dirname = '';
             path.extname = '.min.js';
