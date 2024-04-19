@@ -71,6 +71,7 @@ function typeScriptCompiler() {
         .pipe(replace(/from\s+['"](?:.*\/)?([^'"]+)['"]/g, (match, p1) => {
             return `from './${p1}.min.js'`;
         }))
+        .pipe(uglify())
         .pipe(rename(function (path) {
             path.dirname = '';
             path.extname = '.min.js';
@@ -78,23 +79,14 @@ function typeScriptCompiler() {
         .pipe(dest('assets/'));
 }
 
-// Watcher for non-Windows OS users
-// function watchFiles() {
-//     watch(['src/tailwind-style/**/*.css','./templates/*.liquid', './layout/*.liquid', './sections/*.liquid', './snippets/*.liquid'], tailwindStyleCompiler);
-//     watch('src/styles-minification/**/*.css', regularStylesMinificator);
-//     watch('src/scripts-minification/**/*.js', regularScriptsMinificator);
-//     watch('src/ts-compilation/**/*.ts', typeScriptCompiler);
-//     watch('src/scss/**/*.scss', scssStyleCompiler);
-// }
+function watchFiles() {
+    watch(['src/tailwind-style/**/*.css','./templates/*.liquid', './layout/*.liquid', './sections/*.liquid', './snippets/*.liquid'], {interval: 1000, usePolling: true}, tailwindStyleCompiler);
+    watch('src/styles-minification/**/*.css',{interval: 1000, usePolling: true}, regularStylesMinificator);
+    watch('src/scripts-minification/**/*.js',{interval: 1000, usePolling: true}, regularScriptsMinificator);
+    watch('src/ts-compilation/**/*.ts',{interval: 1000, usePolling: true}, typeScriptCompiler);
+    watch('src/scss/**/*.scss',{interval: 1000, usePolling: true}, scssStyleCompiler);
+}
 
-// Watcher for Windows OS users
-// function watchFiles() {
-//     watch(['src/tailwind-style/**/*.css','./templates/*.liquid', './layout/*.liquid', './sections/*.liquid', './snippets/*.liquid'], {interval: 1000, usePolling: true}, tailwindStyleCompiler);
-//     watch('src/styles-minification/**/*.css',{interval: 1000, usePolling: true}, regularStylesMinificator);
-//     watch('src/scripts-minification/**/*.js',{interval: 1000, usePolling: true}, regularScriptsMinificator);
-//     watch('src/ts-compilation/**/*.ts',{interval: 1000, usePolling: true}, typeScriptCompiler);
-//     watch('src/scss/**/*.scss',{interval: 1000, usePolling: true}, scssStyleCompiler);
-// }
 
 
 exports.default = series(parallel(tailwindStyleCompiler, regularStylesMinificator, regularScriptsMinificator,typeScriptCompiler, scssStyleCompiler), watchFiles);
